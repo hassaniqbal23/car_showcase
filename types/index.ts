@@ -3,7 +3,9 @@ export interface CustomButtonProps {
   containerStyle?: string;
   handleClick?: () => void;
   btnType?: "button" | "submit";
-  icon?: string;
+  rightIcon?: string;
+  textStyle?: string;
+  isDisabled?: boolean;
 }
 
 export interface SearchManufacturerProps {
