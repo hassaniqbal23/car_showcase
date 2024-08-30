@@ -26,3 +26,11 @@ export interface CarProps {
   transmission: string; // Example: "a" (automatic)
   year: number; // Example: 1993
 }
+
+export interface FilterProps {
+  manufacturer: string;
+  year: number;
+  fuel: string;
+  limit: number;
+  model: string;
+}

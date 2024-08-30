@@ -1,9 +1,26 @@
 import { CarCard, CustomFilter, Hero, SearchBar } from "@/components";
+import { manufacturers } from "@/contants";
 import { fetchCars } from "@/utils";
 import Image from "next/image";
 
-export default async function Home() {
-  const allCars = await fetchCars();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: {
+    manufacturer?: string;
+    year?: number;
+    fuel?: string;
+    limit?: number;
+    model?: string;
+  };
+}) {
+  const allCars = await fetchCars({
+    manufacturer: searchParams.manufacturer || "",
+    year: searchParams.year || 2021,
+    fuel: searchParams.fuel || "",
+    limit: searchParams.limit || 10,
+    model: searchParams.model || "",
+  });
 
   const isDataEmpty =
     !Array.isArray(allCars) || allCars.length === 0 || !allCars;
@@ -23,21 +40,6 @@ export default async function Home() {
             <CustomFilter />
           </div>
         </div>
-
-        {!isDataEmpty ? (
-          <section>
-            <div className="home__cars-wrapper">
-              {allCars?.map((car) => (
-                <CarCard car={car} key={car} />
-              ))}
-            </div>
-          </section>
-        ) : (
-          <div className="home__error-container">
-            <h2>Oops no reasult</h2>
-            <p>{allCars?.message}</p>
-          </div>
-        )}
       </div>
     </main>
   );
